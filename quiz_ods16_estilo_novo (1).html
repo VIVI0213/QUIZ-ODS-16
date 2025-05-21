@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Quiz ODS 16 - Paz, Justiça e Instituições Eficazes</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #d0e8ff;
+      padding: 30px;
+      color: #222;
+    }
+    .quiz-container {
+      background: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      max-width: 650px;
+      margin: auto;
+      box-shadow: 0 10px 25px rgba(0, 102, 204, 0.15);
+    }
+    .question {
+      font-size: 22px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px 18px;
+      border: none;
+      background: #005bb5;
+      color: white;
+      border-radius: 8px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .options button:hover {
+      background: #003d80;
+    }
+    #result {
+      font-size: 24px;
+      margin-top: 25px;
+      font-weight: 700;
+      color: #003d80;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div id="quiz">
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const quizData = [
+      {
+        question: "O que o ODS 16 busca promover?",
+        options: [
+          "Crescimento econômico",
+          "Educação básica",
+          "Paz, justiça e instituições eficazes",
+          "Energias renováveis"
+        ],
+        answer: 2
+      },
+      {
+        question: "Qual destas ações contribui para instituições eficazes?",
+        options: [
+          "Corrupção",
+          "Transparência",
+          "Nepotismo",
+          "Discriminação"
+        ],
+        answer: 1
+      },
+      {
+        question: "Justiça acessível significa:",
+        options: [
+          "Leis complexas para advogados",
+          "Tribunais apenas nas capitais",
+          "Serviços jurídicos acessíveis a todos",
+          "Justiça lenta e burocrática"
+        ],
+        answer: 2
+      },
+      {
+        question: "A participação cidadã fortalece:",
+        options: [
+          "Ditaduras",
+          "Instituições corruptas",
+          "Democracia e governança",
+          "Conflitos armados"
+        ],
+        answer: 2
+      },
+      {
+        question: "Corrupção enfraquece:",
+        options: [
+          "Justiça",
+          "Economia",
+          "Confiança pública",
+          "Todas as anteriores"
+        ],
+        answer: 3
+      },
+      {
+        question: "A impunidade leva a:",
+        options: [
+          "Respeito às leis",
+          "Fortalecimento institucional",
+          "Desconfiança e injustiça",
+          "Mais justiça"
+        ],
+        answer: 2
+      },
+      {
+        question: "Qual é um dos pilares de sociedades pacíficas?",
+        options: [
+          "Violência policial",
+          "Censura",
+          "Respeito aos direitos humanos",
+          "Exclusão social"
+        ],
+        answer: 2
+      },
+      {
+        question: "Instituições eficazes devem ser:",
+        options: [
+          "Excludentes e autoritárias",
+          "Translúcidas e lentas",
+          "Inclusivas, transparentes e responsáveis",
+          "Parciais e secretas"
+        ],
+        answer: 2
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const questionEl = document.getElementById("question");
+      const optionsEl = document.getElementById("options");
+      const current = quizData[currentQuestion];
+
+      questionEl.textContent = current.question;
+      optionsEl.innerHTML = "";
+
+      current.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.onclick = () => checkAnswer(index);
+        optionsEl.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selected) {
+      if (selected === quizData[currentQuestion].answer) {
+        score++;
+      }
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("quiz").style.display = "none";
+      const result = document.getElementById("result");
+      result.textContent = `Você acertou ${score} de ${quizData.length} perguntas!`;
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
